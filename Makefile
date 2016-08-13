@@ -79,7 +79,7 @@ IDX_real_property_remarks = documentid
 
 DATABASE = acris
 
-HOST = localhost
+HOST = 192.168.1.9
 PASSFLAG = -p
 
 MYSQL = mysql -u '$(USER)' $(PASSFLAG)$(PASS) -h $(HOST) $(MYSQLFLAGS)
@@ -160,7 +160,7 @@ psql_create:
 data/%.csv: data/%.raw
 	{ \
 	head -n1 $< | \
-		awk '{ gsub(/[ \.\/]/, ""); sub("%", "perc"); sub("\#", "nbr"); print tolower; }'; \
+		awk '{ gsub(/[ \.\/]/, ""); sub("%", "perc"); sub("\#", "nbr"); print}' | tr A-Z a-z; \
 	tail -n+2 $< | \
 		sort --unique | \
 		sed -e 's/,\([01][0-9]\)\/\([0123][0-9]\)\/\([0-9]\{4\}\)/,\3-\1-\2/g'; \
